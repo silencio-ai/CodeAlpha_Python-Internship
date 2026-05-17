@@ -1,37 +1,71 @@
-def stock_tracker():
+def get_stock_prices():
     # Hardcoded dictionary to define stock prices
-    prices = {
+    return {
         "AAPL": 180,
         "TSLA": 250,
         "GOOG": 140,
         "MSFT": 390,
         "AMZN": 170
     }
-    
+
+def save_to_file(portfolio, total_value):
+    # Optionally save the result in a .txt file
+    file_name = "portfolio_summary.txt"
+    try:
+        with open(file_name, "w") as file:
+            file.write("--- Portfolio Summary ---\n")
+            for stock, qty in portfolio.items():
+                file.write(f"{stock}: {qty} shares\n")
+            file.write(f"\nTotal Investment Value: ${total_value}\n")
+        print(f"\nSuccess: Portfolio saved to {file_name}")
+    except Exception as e:
+        print(f"\nError saving file: {e}")
+
+def main_tracker():
+    prices = get_stock_prices()
+    portfolio = {}
     total_investment = 0
-    print("--- Stock Portfolio Tracker ---")
-    print("Available stocks:", list(prices.keys()))
     
+    print("--- Stock Portfolio Tracker ---")
+    print("Available stocks:", ", ".join(prices.keys()))
+    
+    # User inputs stock names and quantity
     while True:
-        stock = input("\nEnter stock ticker (or type 'done' to finish): ").upper()
+        stock = input("\nEnter stock ticker (or type 'done' to finish): ").strip().upper()
         
         if stock == 'DONE':
             break
             
         if stock in prices:
-            qty_input = input(f"Enter quantity for {stock}: ")
+            qty_input = input(f"Enter quantity for {stock}: ").strip()
             
             if qty_input.isdigit():
                 qty = int(qty_input)
-                cost = prices[stock] * qty
-                total_investment += cost
-                print(f"Added {qty} shares of {stock}. Cost: ${cost}")
+                # Add to existing quantity if stock is already in portfolio
+                portfolio[stock] = portfolio.get(stock, 0) + qty
+                print(f"Added {qty} shares of {stock}.")
             else:
-                print("Invalid quantity. Please enter a number.")
+                print("Invalid quantity. Please enter a whole number.")
         else:
-            print("Stock not found. Try one from the available list.")
+            print("Stock not found. Please choose from the available list.")
             
-    print(f"\nYour total investment value is: ${total_investment}")
+    # Calculate and display total investment value
+    print("\n--- Final Portfolio ---")
+    if not portfolio:
+        print("No stocks were added.")
+    else:
+        for stock, qty in portfolio.items():
+            cost = prices[stock] * qty
+            total_investment += cost
+            print(f"{stock}: {qty} shares (Value: ${cost})")
+            
+    print(f"\nTotal Investment Value: ${total_investment}")
+    
+    # Ask to save to file
+    if portfolio:
+        save_choice = input("\nWould you like to save this summary to a text file? (y/n): ").strip().lower()
+        if save_choice == 'y':
+            save_to_file(portfolio, total_investment)
 
 if __name__ == "__main__":
-    stock_tracker()
+    main_tracker()
