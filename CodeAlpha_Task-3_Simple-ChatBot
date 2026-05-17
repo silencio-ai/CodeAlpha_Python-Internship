@@ -1,0 +1,18 @@
+def get_chatbot_response(user_message):
+    # Sanitize the input to lowercase for consistent matching
+    clean_message = str(user_message).strip().lower()
+    
+    # Rule-based logic evaluation
+    if clean_message == "hello":
+        return "Hi!"
+    elif clean_message == "how are you":
+        return "I'm fine, thanks!"
+    elif clean_message == "bye":
+        return "Goodbye!"
+    else:
+        return "I only know basic rules. Try saying hello, how are you, or bye."
+
+# Example Usage:
+# user_text = "how are you"
+# bot_reply = get_chatbot_response(user_text)
+# print(f"Chatbot: {bot_reply}")
