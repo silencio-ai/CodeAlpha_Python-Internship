@@ -7,6 +7,6 @@ Features: Uses a small list of 5 predefined words. It limits incorrect guesses t
 Task 2: Stock Portfolio Tracker
 Goal: Build a simple stock tracker that calculates total investment based on manually defined stock prices.
 Features: The user inputs stock names and quantity. It uses a hardcoded dictionary to define stock prices and displays the total investment value.  
-Task 4: Basic Chatbot
+Task 3: Basic Chatbot
 Goal: Build a simple rule-based chatbot.
 Features: Takes input from the user like "hello", "how are you", "bye". It uses predefined replies like "Hi!", "I'm fine, thanks!", "Goodbye!". 
