@@ -1,0 +1,37 @@
+def stock_tracker():
+    # Hardcoded dictionary to define stock prices
+    prices = {
+        "AAPL": 180,
+        "TSLA": 250,
+        "GOOG": 140,
+        "MSFT": 390,
+        "AMZN": 170
+    }
+    
+    total_investment = 0
+    print("--- Stock Portfolio Tracker ---")
+    print("Available stocks:", list(prices.keys()))
+    
+    while True:
+        stock = input("\nEnter stock ticker (or type 'done' to finish): ").upper()
+        
+        if stock == 'DONE':
+            break
+            
+        if stock in prices:
+            qty_input = input(f"Enter quantity for {stock}: ")
+            
+            if qty_input.isdigit():
+                qty = int(qty_input)
+                cost = prices[stock] * qty
+                total_investment += cost
+                print(f"Added {qty} shares of {stock}. Cost: ${cost}")
+            else:
+                print("Invalid quantity. Please enter a number.")
+        else:
+            print("Stock not found. Try one from the available list.")
+            
+    print(f"\nYour total investment value is: ${total_investment}")
+
+if __name__ == "__main__":
+    stock_tracker()
